@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 @ApplicationScoped
 public class RequestAuthorizationHeaderFactory implements ClientHeadersFactory {
 
-    @ConfigProperty(name = "api_token")
+    @ConfigProperty(name = "token")
     String token;
 
     @Override

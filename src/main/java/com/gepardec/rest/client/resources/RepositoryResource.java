@@ -11,7 +11,7 @@ import javax.ws.rs.Path;
 import java.util.HashMap;
 import java.util.HashSet;
 
-@Path("/repos")
+@Path("/repo")
 public class RepositoryResource {
 
     @Inject
