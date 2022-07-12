@@ -1,8 +1,11 @@
 package com.gepardec;
 
+import javax.ws.rs.Path;
+
+@Path("/check")
 public class Durchblick {
 
-    public void main(){
-
+    @Path("/repos")
+    public void getAllRepos() {
     }
 }
