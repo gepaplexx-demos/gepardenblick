@@ -8,7 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import java.util.Set;
 
-@Path("/repos")
+@Path("/repo")
 @RegisterClientHeaders(RequestUUIDHeaderFactory.class)
 @RegisterRestClient(configKey="sourcehook-api")
 public interface SouceHookService {

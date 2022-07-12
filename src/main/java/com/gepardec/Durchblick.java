@@ -2,10 +2,10 @@ package com.gepardec;
 
 import javax.ws.rs.Path;
 
-@Path("/check")
+@Path("/orgs")
 public class Durchblick {
 
-    @Path("/repos")
+    @Path("/{Org}/repos")
     public void getAllRepos() {
     }
 }
