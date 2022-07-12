@@ -20,10 +20,10 @@ public class SourceHookResource {
 
     @GET
     @Path("/{owner}/{rep}/hooks")
-    public HashMap<String, Boolean> getHookByUrl(@PathParam String owner, String rep) {
+    public HashMap<Object, Boolean> getHookByUrl(@PathParam String owner, String rep) {
         Set<SourceHook> res =  souceHookService.getHookByUrl(owner, rep);
-        HashMap<String, Boolean> repos = new HashMap<>();
-        res.forEach(elem -> repos.put(elem.url, elem.active));
+        HashMap<Object, Boolean> repos = new HashMap<>();
+        res.forEach(elem -> repos.put(elem.config, elem.active));
         return repos;
     }
 }

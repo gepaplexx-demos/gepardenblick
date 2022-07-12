@@ -1,14 +1,14 @@
 package com.gepardec.rest.client.model;
 
-import java.util.List;
-
-public class SourceHook {
-    public String type;
+public class SourceHook {;
     public Boolean active;
-
-    public List<String> config;
+    public Object config;
 
     public String url;
 
+
+
 }
+
+
 
