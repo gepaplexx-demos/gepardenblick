@@ -1,7 +1,7 @@
 package com.gepardec.rest.client.services;
 
 import com.gepardec.rest.client.model.ArgoCdRepo;
-import com.gepardec.utils.RequestAuthorizationHeaderFactory;
+import com.gepardec.utils.RequestAuthorizationArgoCdHeaderFactory;
 import org.eclipse.microprofile.rest.client.annotation.RegisterClientHeaders;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
@@ -11,7 +11,7 @@ import java.util.HashSet;
 
 @Path("/v1")
 @RegisterRestClient
-@RegisterClientHeaders(RequestAuthorizationHeaderFactory.class)
+@RegisterClientHeaders(RequestAuthorizationArgoCdHeaderFactory.class)
 public interface IArgoCdRepoService {
     @GET
     @Path("/applications")

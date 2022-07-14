@@ -11,7 +11,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CompletionStage;
 
 @Path("/repos")
 @RegisterRestClient
@@ -21,10 +20,6 @@ public interface ISourceHookService {
     @GET
     @Path("/{owner}/{rep}/hooks")
     Set<SourceHook> getHookByUrl(@PathParam String owner, @PathParam String rep);
-
-    @GET
-    @Path("/{orgs}/{repos}/hooks")
-    Set<SourceHook> getHookByOrgs(@PathParam String orgs, @PathParam String repos);
 
     @GET
     @Path("/{org}/{repos}/hooks")
