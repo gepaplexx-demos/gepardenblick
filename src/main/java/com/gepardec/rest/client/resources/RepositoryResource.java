@@ -34,14 +34,14 @@ public class RepositoryResource {
         return repos;
     }
 
-    @GET
+    /*@GET
     @Path("/{org}/hooks")
     public HashMap<String, Boolean> getHookByRepos(String org, String repos) {
-        Set<SourceHook> res =  souceHookService.getHookByRepos(org, repos);
+        List<SourceHook> res =  souceHookService.getHookByRepos(org, repos);
         HashMap<String, Boolean> hooks = new HashMap<>();
         for (SourceHook s: res) {
             hooks.put(s.config.get("url"), s.active);
         }
         return hooks;
-    }
+    } */
 }

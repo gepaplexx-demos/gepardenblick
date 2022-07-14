@@ -9,6 +9,7 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletionStage;
 
@@ -26,8 +27,8 @@ public interface ISourceHookService {
     Set<SourceHook> getHookByOrgs(@PathParam String orgs, @PathParam String repos);
 
     @GET
-    @Path("/{orgs}/{repos}/hooks")
-    Set<SourceHook> getHookByRepos(@PathParam String org, @PathParam String repos);
+    @Path("/{org}/{repos}/hooks")
+    List<SourceHook> getHookByRepos(@PathParam String org, @PathParam String repos);
 
 
 

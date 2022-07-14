@@ -41,7 +41,7 @@ public class OrgsRepoResource {
         return orgs;
     }
 
-    @GET
+    /*@GET
     @Path("/orgs/repos")
     public HashMap<String, String> getReposByOrgs(String org) {
         HashSet<Repository> resRepo =  repositoryService.getReposByOrgs(org);
@@ -57,6 +57,6 @@ public class OrgsRepoResource {
             hooks.put(s.config.get("url"), s.active);
         }
         return hooks;
-    }
+    } */
 
 }
