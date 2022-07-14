@@ -68,8 +68,8 @@ public class FacadeResource {
             repoMap.put(orgs.login, repos.stream().map(x -> x.name).collect(Collectors.toList()));
             resRepo = repositoryService.getReposByOrg(orgs.login);
             for (Repository repo:resRepo) {
-                List<SourceHook> hooks = sourceHookService.getHookByRepos(orgs.toString(), repo.name);
-                hookMap.put(orgs.toString(), hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));
+                List<SourceHook> hooks = sourceHookService.getHookByRepos(orgs.login, repo.name);
+                hookMap.put(orgs.login, hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));
             }
         }
         return hookMap;

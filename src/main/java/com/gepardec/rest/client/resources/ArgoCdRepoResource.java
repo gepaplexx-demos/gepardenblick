@@ -18,10 +18,10 @@ public class ArgoCdRepoResource {
 
     @GET
     @Path("/applications")
-    public HashMap<HashMap, String> getOrgByToke() {
+    public HashMap<HashMap, HashMap> getOrgByToke() {
         HashSet<ArgoCdRepo> res =  argoCdRepoService.getReposByUrl();
-        HashMap<HashMap, String> repos = new HashMap<>();
-        res.forEach(elem -> repos.put(elem.items, elem.repoURL));
+        HashMap<HashMap, HashMap> repos = new HashMap<>();
+        res.forEach(elem -> repos.put(elem.metadata, elem.items));
         return repos;
     }
 }
