@@ -19,7 +19,7 @@ public interface ISourceHookService {
 
     @GET
     @Path("/{owner}/{rep}/hooks")
-    Set<SourceHook> getHookByUrl(@PathParam String owner, @PathParam String rep);
+    Set<SourceHook> getHookByOwnerAndRepo(@PathParam String owner, @PathParam String rep);
 
     @GET
     @Path("/{org}/{repos}/hooks")

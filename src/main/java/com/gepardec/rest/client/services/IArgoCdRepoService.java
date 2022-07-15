@@ -8,6 +8,7 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import java.util.HashSet;
+import java.util.List;
 
 @Path("/v1")
 @RegisterRestClient
@@ -15,6 +16,6 @@ import java.util.HashSet;
 public interface IArgoCdRepoService {
     @GET
     @Path("/applications")
-    HashSet<ArgoCdRepo> getReposByUrl();
+    List<ArgoCdRepo> getAllRepos();
 
 }

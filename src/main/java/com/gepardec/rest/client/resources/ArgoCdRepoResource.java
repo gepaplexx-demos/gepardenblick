@@ -8,7 +8,8 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 @Path("/v1")
 public class ArgoCdRepoResource {
@@ -18,10 +19,15 @@ public class ArgoCdRepoResource {
 
     @GET
     @Path("/applications")
-    public HashMap<HashMap, HashMap> getOrgByToke() {
-        HashSet<ArgoCdRepo> res =  argoCdRepoService.getReposByUrl();
-        HashMap<HashMap, HashMap> repos = new HashMap<>();
-        res.forEach(elem -> repos.put(elem.metadata, elem.items));
+    public HashMap<String, String> getAllRepos() {
+        List<ArgoCdRepo> res =  argoCdRepoService.getAllRepos();
+        HashMap<String, String> repos = new HashMap<>();
+        ArgoCdRepo argoCdRepo = new ArgoCdRepo();
+        Map<String, List<String>> spec = (Map<String, List<String>>) argoCdRepo.items.get("spec");
+        Map<String, String> source = (Map<String, String>) spec.get("source");
+        argoCdRepo.repoURL = source.get("repoURL");
+        repos.put(argoCdRepo.repoURL, (String) argoCdRepo.metadata.get("name"));
+
         return repos;
     }
 }

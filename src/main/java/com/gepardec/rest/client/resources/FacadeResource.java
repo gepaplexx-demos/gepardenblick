@@ -52,7 +52,7 @@ public class FacadeResource {
 
     @GET
     @Path("/orgs/repos")
-    public HashMap<String, List<String>> getReposByOrgs() {
+    public HashMap<String, List<String>> getReposFromOrgs() {
         HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToke();
         HashMap<String, List<String>> repoMap = new HashMap<>();
         for (OrgsRepo orgs:resOrgs) {
@@ -64,7 +64,7 @@ public class FacadeResource {
 
     @GET
     @Path("/orgs/repos/hooks")
-    public HashMap<String, List<String>> getHooksByOrgs() {
+    public HashMap<String, List<String>> getHooksFromOrgs() {
         HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToke();
         HashMap<String, List<String>> repoMap = new HashMap<>();
         HashSet<Repository> resRepo;

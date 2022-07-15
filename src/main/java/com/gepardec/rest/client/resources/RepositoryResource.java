@@ -2,7 +2,6 @@ package com.gepardec.rest.client.resources;
 
 import com.gepardec.rest.client.model.Repository;
 import com.gepardec.rest.client.services.IRepositoryService;
-import com.gepardec.rest.client.services.ISourceHookService;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
@@ -18,10 +17,6 @@ public class RepositoryResource {
     @Inject
     @RestClient
     IRepositoryService repositoryService;
-
-    @Inject
-    @RestClient
-    ISourceHookService souceHookService;
 
     @GET
     @Path("/{org}")

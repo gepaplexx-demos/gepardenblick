@@ -20,8 +20,8 @@ public class SourceHookResource {
 
     @GET
     @Path("/{owner}/{rep}/hooks")
-    public HashMap<String, Boolean> getHookByUrl(@PathParam String owner, String rep) {
-        Set<SourceHook> res =  souceHookService.getHookByUrl(owner, rep);
+    public HashMap<String, Boolean> getHookByOwnerAndRepo(@PathParam String owner, String rep) {
+        Set<SourceHook> res =  souceHookService.getHookByOwnerAndRepo(owner, rep);
         HashMap<String, Boolean> hooks = new HashMap<>();
         for (SourceHook s: res) {
             hooks.put(s.config.get("url"), s.active);
