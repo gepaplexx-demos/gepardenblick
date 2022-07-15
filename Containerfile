@@ -5,8 +5,8 @@ RUN chown :root /work \
     && chmod "g+rwX" /work \
     && chown :root /work
 
-COPY target/*-run.jar /work/application.jar
-COPY target/lib/* /work/lib/
+COPY target/quarkus-app/*-run.jar /work/application.jar
+COPY target/quarkus-app/lib/* /work/lib/
 
 EXPOSE 8080
 
