@@ -6,7 +6,6 @@ import com.gepardec.rest.client.model.SourceHook;
 import com.gepardec.rest.client.services.IOrgsRepoService;
 import com.gepardec.rest.client.services.IRepositoryService;
 import com.gepardec.rest.client.services.ISourceHookService;
-import io.quarkus.vertx.http.runtime.attribute.ResponseCodeAttribute;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.inject.Inject;
@@ -41,7 +40,7 @@ public class FacadeResource {
         for (Repository repo:res) {
             if (repo.permissions.get("admin").equals("true")){
                 List<SourceHook> hooks = sourceHookService.getHookByRepos(org, repo.name);
-                hookMap.put(repo.name, hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));// orgs hinzu nehmen?
+                hookMap.put(repo.name, hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));
             }
             else{
                 List<String> Lnull = null;

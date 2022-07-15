@@ -16,7 +16,6 @@ public class RequestAuthorizationArgoCdHeaderFactory implements ClientHeadersFac
     @Override
     public MultivaluedMap<String, String> update(MultivaluedMap<String, String> incomingHeaders, MultivaluedMap<String, String> clientOutgoingHeaders) {
         MultivaluedMap<String, String> result = new MultivaluedHashMap<>();
-//        result.add("Accept", "application/json");
         result.add("Authorization", "Bearer " + argoCDtoken);
         return result;
     }
