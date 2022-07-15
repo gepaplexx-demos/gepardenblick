@@ -28,7 +28,7 @@ public class RepositoryResource {
     public HashMap<String, String> getReposByOrg(@PathParam String org) {
         HashSet<Repository> res =  repositoryService.getReposByOrg(org);
         HashMap<String, String> repos = new HashMap<>();
-        res.forEach(elem -> repos.put(elem.name, elem.hooks_url));
+        res.forEach(elem -> repos.put(elem.name, elem.html_url));
         return repos;
     }
 }

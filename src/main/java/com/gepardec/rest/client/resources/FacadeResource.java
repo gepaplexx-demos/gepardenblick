@@ -6,6 +6,7 @@ import com.gepardec.rest.client.model.SourceHook;
 import com.gepardec.rest.client.services.IOrgsRepoService;
 import com.gepardec.rest.client.services.IRepositoryService;
 import com.gepardec.rest.client.services.ISourceHookService;
+import io.quarkus.vertx.http.runtime.attribute.ResponseCodeAttribute;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.inject.Inject;
@@ -38,8 +39,14 @@ public class FacadeResource {
         HashSet<Repository> res = repositoryService.getReposByOrg(org);
         HashMap<String, List<String>> hookMap = new HashMap<>();
         for (Repository repo:res) {
-            List<SourceHook> hooks = sourceHookService.getHookByRepos(org, repo.name);
-            hookMap.put(org, hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));
+            if (repo.permissions.get("admin").equals("true")){
+                List<SourceHook> hooks = sourceHookService.getHookByRepos(org, repo.name);
+                hookMap.put(repo.name, hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));// orgs hinzu nehmen?
+            }
+            else{
+                List<String> Lnull = null;
+                hookMap.put(repo.name, Lnull);
+            }
         }
         return hookMap;
     }
@@ -68,8 +75,15 @@ public class FacadeResource {
             repoMap.put(orgs.login, repos.stream().map(x -> x.name).collect(Collectors.toList()));
             resRepo = repositoryService.getReposByOrg(orgs.login);
             for (Repository repo:resRepo) {
-                List<SourceHook> hooks = sourceHookService.getHookByRepos(orgs.login, repo.name);
-                hookMap.put(orgs.login, hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));
+                if (repo.permissions.get("admin").equals("true")){
+                    List<SourceHook> hooks = sourceHookService.getHookByRepos(orgs.login, repo.name);
+                    hookMap.put(orgs.login, hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));
+                }
+                else{
+                    List<String> Lnull = null;
+                    hookMap.put(orgs.login, Lnull);
+                }
+
             }
         }
         return hookMap;
