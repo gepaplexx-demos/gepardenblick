@@ -20,7 +20,7 @@ public class ArgoCdRepoResource {
     @GET
     @Path("/applications")
     public HashMap<String, String> getAllRepos() {
-        List<ArgoCdRepo> res =  argoCdRepoService.getAllRepos();
+        //List<ArgoCdRepo> res =  argoCdRepoService.getAllRepos();
         HashMap<String, String> repos = new HashMap<>();
         ArgoCdRepo argoCdRepo = new ArgoCdRepo();
         Map<String, List<String>> spec = (Map<String, List<String>>) argoCdRepo.items.get("spec");
