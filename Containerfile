@@ -1,15 +1,15 @@
-FROM registry.access.redhat.com/ubi8/openjdk-17:1.11
+FROM openjdk:11.0-jre-slim
 
-ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
+WORKDIR /work/
+RUN chown :root /work \
+    && chmod "g+rwX" /work \
+    && chown :root /work
 
-
-# We make four distinct layers so if there are application changes the library layers can be re-used
-COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/
-COPY --chown=185 target/quarkus-app/*.jar /deployments/
-COPY --chown=185 target/quarkus-app/app/ /deployments/app/
-COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
+COPY target/quarkus-app/*-run.jar /work/application.jar
+COPY target/quarkus-app/lib/ /work/lib/
+COPY target/quarkus-app/app/ /work/app/
+COPY target/quarkus-app/quarkus/ /work/quarkus/
 
 EXPOSE 8080
-USER 185
-ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
-ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
+
+CMD ["java","-jar","application.jar","-Dquarkus.http.host=0.0.0.0"]
