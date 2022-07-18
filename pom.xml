@@ -72,25 +72,27 @@
           </execution>
         </executions>
       </plugin>
-<!--      <plugin>-->
-<!--        <artifactId>maven-compiler-plugin</artifactId>-->
-<!--        <version>${compiler-plugin.version}</version>-->
-<!--        <configuration>-->
-<!--          <compilerArgs>-->
-<!--            <arg>-parameters</arg>-->
-<!--          </compilerArgs>-->
-<!--        </configuration>-->
-<!--      </plugin>-->
-<!--      <plugin>-->
-<!--        <artifactId>maven-surefire-plugin</artifactId>-->
-<!--        <version>${surefire-plugin.version}</version>-->
-<!--        <configuration>-->
-<!--          <systemPropertyVariables>-->
-<!--            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>-->
-<!--            <maven.home>${maven.home}</maven.home>-->
-<!--          </systemPropertyVariables>-->
-<!--        </configuration>-->
-<!--      </plugin>-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <compilerArgs>
+            <arg>-parameters</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire-plugin.version}</version>
+        <configuration>
+          <systemPropertyVariables>
+            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+            <maven.home>3.8.1</maven.home>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>${surefire-plugin.version}</version>
