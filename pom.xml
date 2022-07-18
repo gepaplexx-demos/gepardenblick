@@ -17,7 +17,6 @@
     <maven.compiler.target>18</maven.compiler.target>
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
-
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -92,7 +91,7 @@
         <configuration>
           <systemPropertyVariables>
             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-            <maven.home>3.8.1</maven.home>
+            <maven.home>3.10.1</maven.home>
           </systemPropertyVariables>
         </configuration>
       </plugin>
@@ -109,7 +108,7 @@
               <systemPropertyVariables>
                 <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
                 <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                <maven.home>3.8.1</maven.home>
+                <maven.home>3.10.1</maven.home>
               </systemPropertyVariables>
             </configuration>
           </execution>
