@@ -19,6 +19,7 @@ public class RequestAuthorizationArgoCdHeaderFactory implements ClientHeadersFac
         result.add("Accept", "application/json");
         result.add("Authorization", "Bearer " + argoCDtoken);
         return result;
+
     }
 
 }

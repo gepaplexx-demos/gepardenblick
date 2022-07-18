@@ -1,12 +1,11 @@
 package com.gepardec.rest.client.model;
 
-import java.util.HashMap;
+import com.gepardec.rest.client.modelAtribute.Items;
+
+import java.util.List;
 
 public class ArgoCdRepo {
 
-    public HashMap<String, Object> items;
-    public HashMap<String, Object> metadata;
-
-    public String repoURL;
+    public List<Items> items;
 
 }

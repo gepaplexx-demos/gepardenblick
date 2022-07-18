@@ -16,6 +16,6 @@ import java.util.List;
 public interface IArgoCdRepoService {
     @GET
     @Path("/applications")
-    List<ArgoCdRepo> getAllRepos();
+    ArgoCdRepo getAllRepos();
 
 }
