@@ -6,7 +6,9 @@ RUN chown :root /work \
     && chown :root /work
 
 COPY target/quarkus-app/*-run.jar /work/application.jar
-COPY target/quarkus-app/lib/* /work/lib/
+COPY target/quarkus-app/lib/ /work/lib/
+COPY target/quarkus-app/app/ /work/app/
+COPY target/quarkus-app/quarkus/ /work/quarkus/
 
 EXPOSE 8080
 
