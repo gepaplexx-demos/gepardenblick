@@ -17,6 +17,13 @@
     <maven.compiler.target>17</maven.compiler.target>
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
+
+    <!-- Sonar configuration -->
+    <sonar.projectKey>${project.artifactId}</sonar.projectKey>
+    <sonar.host.url>https://sonarqube.apps.play.gepaplexx.com</sonar.host.url>
+    <sonar.language>java</sonar.language>
+    <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
+    <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
   </properties>
   <dependencyManagement>
     <dependencies>
