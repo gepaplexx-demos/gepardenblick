@@ -1,5 +1,7 @@
 package com.gepardec.rest.client.resources;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gepardec.rest.client.model.OrgsRepo;
 import com.gepardec.rest.client.model.Repository;
 import com.gepardec.rest.client.model.SourceHook;
@@ -32,9 +34,12 @@ public class FacadeResource {
     @RestClient
     IOrgsRepoService orgsRepoService;
 
+    @Inject
+    ObjectMapper mapper;
+
     @GET
     @Path("/{org}/hooks")
-    public HashMap<String, List<String>> getHookByRepos(@PathParam String org) {
+    public String getHookByRepos(@PathParam String org) throws JsonProcessingException {
         HashSet<Repository> res = repositoryService.getReposByOrg(org);
         HashMap<String, List<String>> hookMap = new HashMap<>();
         for (Repository repo:res) {
@@ -47,24 +52,25 @@ public class FacadeResource {
                 hookMap.put(repo.name, Lnull);
             }
         }
-        return hookMap;
+
+        return mapper.writeValueAsString(hookMap);
     }
 
     @GET
     @Path("/orgs/repos")
-    public HashMap<String, List<String>> getReposFromOrgs() {
+    public String getReposFromOrgs() throws JsonProcessingException {
         HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToke();
         HashMap<String, List<String>> repoMap = new HashMap<>();
         for (OrgsRepo orgs:resOrgs) {
             List<Repository> repos = repositoryService.getReposByOrgs(orgs.login);
             repoMap.put(orgs.login, repos.stream().map(x -> x.name).collect(Collectors.toList()));
         }
-        return repoMap;
+        return mapper.writeValueAsString(repoMap);
     }
 
     @GET
     @Path("/orgs/repos/hooks")
-    public HashMap<String, List<String>> getHooksFromOrgs() {
+    public String getHooksFromOrgs() throws JsonProcessingException {
         HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToke();
         HashMap<String, List<String>> repoMap = new HashMap<>();
         HashSet<Repository> resRepo;
@@ -85,7 +91,7 @@ public class FacadeResource {
 
             }
         }
-        return hookMap;
+        return mapper.writeValueAsString(hookMap);
     }
 
 }

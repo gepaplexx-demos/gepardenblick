@@ -1,5 +1,7 @@
 package com.gepardec.rest.client.resources;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gepardec.rest.client.model.OrgsRepo;
 import com.gepardec.rest.client.services.IOrgsRepoService;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -16,12 +18,15 @@ public class OrgsRepoResource {
     @RestClient
     IOrgsRepoService orgsRepoService;
 
+    @Inject
+    ObjectMapper mapper;
+
     @GET
     @Path("/orgs")
-    public HashMap<String, String> getOrgByToke() {
+    public String getOrgByToke() throws JsonProcessingException {
         HashSet<OrgsRepo> resOrg =  orgsRepoService.getOrgByToke();
         HashMap<String, String> orgs = new HashMap<>();
         resOrg.forEach(elem -> orgs.put(elem.login, elem.url));
-        return orgs;
+        return mapper.writeValueAsString(orgs);
     }
 }

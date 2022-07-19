@@ -1,5 +1,7 @@
 package com.gepardec.rest.client.resources;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gepardec.rest.client.model.SourceHook;
 import com.gepardec.rest.client.services.ISourceHookService;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -18,14 +20,17 @@ public class SourceHookResource {
     @RestClient
     ISourceHookService souceHookService;
 
+    @Inject
+    ObjectMapper mapper;
+
     @GET
     @Path("/{owner}/{rep}/hooks")
-    public HashMap<String, Boolean> getHookByOwnerAndRepo(@PathParam String owner, String rep) {
+    public String getHookByOwnerAndRepo(@PathParam String owner, String rep) throws JsonProcessingException {
         Set<SourceHook> res =  souceHookService.getHookByOwnerAndRepo(owner, rep);
         HashMap<String, Boolean> hooks = new HashMap<>();
         for (SourceHook s: res) {
             hooks.put(s.config.get("url"), s.active);
         }
-        return hooks;
+        return mapper.writeValueAsString(hooks);
     }
 }
