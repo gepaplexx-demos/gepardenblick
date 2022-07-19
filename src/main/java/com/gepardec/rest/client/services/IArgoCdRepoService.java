@@ -1,14 +1,11 @@
 package com.gepardec.rest.client.services;
 
-import com.gepardec.rest.client.model.ArgoCdRepo;
 import com.gepardec.utils.RequestAuthorizationArgoCdHeaderFactory;
 import org.eclipse.microprofile.rest.client.annotation.RegisterClientHeaders;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import java.util.HashSet;
-import java.util.List;
 
 @Path("/v1")
 @RegisterRestClient
@@ -16,6 +13,6 @@ import java.util.List;
 public interface IArgoCdRepoService {
     @GET
     @Path("/applications")
-    ArgoCdRepo getAllRepos();
+    String getAllRepos();
 
 }
