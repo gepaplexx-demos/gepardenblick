@@ -25,7 +25,7 @@ public class ArgoCdRepoResource {
 
     @GET
     @Path("/repos")
-    public HashMap<String, String> getAllRepos() throws JsonProcessingException {
+    public String getAllRepos() throws JsonProcessingException {
 
         String response =  argoCdRepoService.getAllRepos();
         TypeReference<HashSet<ArgoCdRepo>> typeRef = new TypeReference<HashSet<ArgoCdRepo>>() {};
@@ -36,6 +36,6 @@ public class ArgoCdRepoResource {
         HashMap<String, String> result = new HashMap<>();
         repos.forEach(repo -> repo.items.forEach(item -> result.put(item.name, item.repoURL)));
 
-        return result;
+        return mapper.writeValueAsString(result);
     }
 }
