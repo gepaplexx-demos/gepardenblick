@@ -11,7 +11,8 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
 
 @Path("/argo")
 public class ArgoCdRepoResource {
