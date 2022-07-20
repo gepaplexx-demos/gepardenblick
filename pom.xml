@@ -51,11 +51,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>rest-assured</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-rest-client</artifactId>
     </dependency>
@@ -143,16 +138,6 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${surefire-plugin.version}</version>
-        <configuration>
-          <systemPropertyVariables>
-            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-            <maven.home>3.10.1</maven.home>
-          </systemPropertyVariables>
-        </configuration>
       </plugin>
     </plugins>
   </build>
