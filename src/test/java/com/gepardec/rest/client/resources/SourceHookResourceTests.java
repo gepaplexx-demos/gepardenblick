@@ -21,7 +21,7 @@ import static java.lang.Boolean.TRUE;
 @QuarkusTest
 public class SourceHookResourceTests {
 
-    @InjectMock(convertScopes = true)
+    @InjectMock
     @RestClient
     ISourceHookService sourceHookService;
 
@@ -33,7 +33,7 @@ public class SourceHookResourceTests {
 
     private HashSet<SourceHook> testHooks;
     private HashMap<String, String> testConfig;
-    private HashMap<Boolean, HashMap> expectedResponse;
+    private HashMap<String, Boolean> expectedResponse;
 
     @BeforeEach
     public void setup() {
@@ -44,12 +44,12 @@ public class SourceHookResourceTests {
 
     @Test
     public void whenGetHookByOwnerAndRepoGivenRepoAndOwnerName_thenReturnValidJsonOfSingleHook() throws JsonProcessingException {
-        testConfig.put("https://gepardenblick.apps.play.gepaplexx.com/push", "https://gepardenblick.apps.play.gepaplexx.com/push");
+        testConfig.put("url", "https://gepardenblick.apps.play.gepaplexx.com/push");
         SourceHook sourceHook = new SourceHook(TRUE, testConfig);
         testHooks.add(sourceHook);
-        expectedResponse.put(sourceHook.active, sourceHook.config);
+        expectedResponse.put(sourceHook.config.get("url"), sourceHook.active);
         Mockito.when(sourceHookService.getHookByOwnerAndRepo("gepaplexx-demos", "gepardenblick")).thenReturn(testHooks);
 
-        Assertions.assertEquals(sourceHookResource.getHookByOwnerAndRepo("testorg", "testorg"), mapper.writeValueAsString(expectedResponse));
+        Assertions.assertEquals(sourceHookResource.getHookByOwnerAndRepo("gepaplexx-demos", "gepardenblick"), mapper.writeValueAsString(expectedResponse));
     }
 }
