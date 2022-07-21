@@ -14,8 +14,6 @@ public class Repository {
         this.permissions = permissions;
     }
 
-    public Repository() {
-    }
 }
 
 

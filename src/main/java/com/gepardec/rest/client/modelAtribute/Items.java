@@ -21,4 +21,10 @@ public class Items {
     private void unpackNameFromNestedObject(Map<String, Object> metadata) {
         this.name = (String)metadata.get("name");
     }
+
+
+    public Items(String name, String repoURL) {
+        this.name = name;
+        this.repoURL = repoURL;
+    }
 }
