@@ -19,7 +19,7 @@ import java.util.HashSet;
 @QuarkusTest
 public class RepositoryResourceTests {
 
-    private final String TEST_ORG = "testorg";
+    private final String TEST_ORG = "gepaplexx-demos";
 
     @InjectMock(convertScopes = true)
     @RestClient
@@ -45,7 +45,7 @@ public class RepositoryResourceTests {
     @Test
     public void whenGetReposByOrgGivenOrgName_thenReturnValidJsonOfSingleRepo() throws JsonProcessingException {
         testPermissions.put("admin", "true");
-        Repository repository = new Repository("repo1", "https://github.com/repo1", testPermissions);
+        Repository repository = new Repository("gepardenblick", "https://github.com/gepaplexx-demos/gepardenblick", testPermissions);
         testRepos.add(repository);
         expectedResponse.put(repository.name, repository.html_url);
         Mockito.when(repositoryService.getReposByOrg(TEST_ORG)).thenReturn(testRepos);

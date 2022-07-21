@@ -23,8 +23,8 @@ public class OrgsRepoResource {
 
     @GET
     @Path("/orgs")
-    public String getOrgByToke() throws JsonProcessingException {
-        HashSet<OrgsRepo> resOrg =  orgsRepoService.getOrgByToke();
+    public String getOrgByToken() throws JsonProcessingException {
+        HashSet<OrgsRepo> resOrg =  orgsRepoService.getOrgByToken();
         HashMap<String, String> orgs = new HashMap<>();
         resOrg.forEach(elem -> orgs.put(elem.login, elem.url));
         return mapper.writeValueAsString(orgs);

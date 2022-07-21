@@ -59,7 +59,7 @@ public class FacadeResource {
     @GET
     @Path("/orgs/repos")
     public String getReposFromOrgs() throws JsonProcessingException {
-        HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToke();
+        HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToken();
         HashMap<String, List<String>> repoMap = new HashMap<>();
         for (OrgsRepo orgs:resOrgs) {
             List<Repository> repos = repositoryService.getReposByOrgs(orgs.login);
@@ -70,14 +70,12 @@ public class FacadeResource {
 
     @GET
     @Path("/orgs/repos/hooks")
-    public String getAllHooks() throws JsonProcessingException {
-        HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToke();
-        HashMap<String, List<String>> repoMap = new HashMap<>();
+    public String getHooksFromOrgs() throws JsonProcessingException {
+        HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToken();
         HashSet<Repository> resRepo;
         HashMap<String, List<String>> hookMap = new HashMap<>();
         for (OrgsRepo orgs:resOrgs) {
             List<Repository> repos = repositoryService.getReposByOrgs(orgs.login);
-            repoMap.put(orgs.login, repos.stream().map(x -> x.name).collect(Collectors.toList()));
             resRepo = repositoryService.getReposByOrg(orgs.login);
             for (Repository repo:resRepo) {
                 if (repo.permissions.get("admin").equals("true")){

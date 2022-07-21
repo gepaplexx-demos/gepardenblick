@@ -18,7 +18,7 @@ import java.util.HashSet;
 
 @QuarkusTest
 public class OrgsRepoResourceTests {
-    @InjectMock(convertScopes = true)
+    @InjectMock
     @RestClient
     IOrgsRepoService orgsRepoService;
 
@@ -38,12 +38,12 @@ public class OrgsRepoResourceTests {
     }
 
     @Test
-    public void whenGetOrgsByToke_thenReturnValidJsonOfSingleOrg() throws JsonProcessingException {
+    public void whenGetOrgsByToken_thenReturnValidJsonOfSingleOrgRepo() throws JsonProcessingException {
         OrgsRepo orgsRepo = new OrgsRepo("gepaplexx-demos", "https://api.github.com/orgs/gepaplexx-demos");
         testOrg.add(orgsRepo);
         expectedResponse.put(orgsRepo.login, orgsRepo.url);
-        Mockito.when(orgsRepoService.getOrgByToke()).thenReturn(testOrg);
+        Mockito.when(orgsRepoService.getOrgByToken()).thenReturn(testOrg);
 
-        Assertions.assertEquals(orgsRepoResource.getOrgByToke(), mapper.writeValueAsString(expectedResponse));
+        Assertions.assertEquals(orgsRepoResource.getOrgByToken(), mapper.writeValueAsString(expectedResponse));
     }
 }

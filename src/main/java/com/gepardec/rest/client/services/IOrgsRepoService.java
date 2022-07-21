@@ -17,6 +17,6 @@ import java.util.HashSet;
 public interface IOrgsRepoService {
     @GET
     @Path("/orgs")
-    HashSet<OrgsRepo> getOrgByToke();
+    HashSet<OrgsRepo> getOrgByToken();
 
 }
