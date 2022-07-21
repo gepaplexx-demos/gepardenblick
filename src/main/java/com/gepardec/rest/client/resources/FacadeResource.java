@@ -75,7 +75,6 @@ public class FacadeResource {
         HashSet<Repository> resRepo;
         HashMap<String, List<String>> hookMap = new HashMap<>();
         for (OrgsRepo orgs:resOrgs) {
-            List<Repository> repos = repositoryService.getReposByOrgs(orgs.login);
             resRepo = repositoryService.getReposByOrg(orgs.login);
             for (Repository repo:resRepo) {
                 if (repo.permissions.get("admin").equals("true")){
@@ -86,7 +85,6 @@ public class FacadeResource {
                     List<String> Lnull = null;
                     hookMap.put(orgs.login, Lnull);
                 }
-
             }
         }
         return mapper.writeValueAsString(hookMap);

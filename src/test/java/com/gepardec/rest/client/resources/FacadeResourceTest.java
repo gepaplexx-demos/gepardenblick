@@ -18,9 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @QuarkusTest
 @Disabled
@@ -46,9 +44,14 @@ public class FacadeResourceTest {
 
     private List<SourceHook> testFacadeHook;
     private List<Repository> testFacadeRepo;
+    private HashSet<Repository> testFacadeRepoHooks;
+
+    private HashSet<OrgsRepo> testFacadeOrg;
     private HashMap<String, String> testConfig;
     private HashMap<String, String> testPermissions;
     private HashMap<String,  String> expectedResponse;
+
+    private HashMap<String,  List<String>> expectedResponseRepo;
     private HashMap<String,  HashMap<String, String>> expectedResponseHooks;
 
 
@@ -57,23 +60,31 @@ public class FacadeResourceTest {
     public void setup() {
         testFacadeHook = new ArrayList<>();
         testFacadeRepo = new ArrayList<>();
+        testFacadeRepoHooks = new HashSet<>();
+        testFacadeOrg = new HashSet<>();
         testConfig = new HashMap<>();
         expectedResponse = new HashMap<>();
         expectedResponseHooks = new HashMap<>();
         testPermissions = new HashMap<>();
+        expectedResponseRepo = new HashMap<>();
     }
 
     @Test
     public void whenGetHooksByRepos_thenReturnValidJsonOfHooks() throws JsonProcessingException {
         testPermissions.put("admin", "true");
         testConfig.put("https://gepardenblick.apps.play.gepaplexx.com/push", "https://gepardenblick.apps.play.gepaplexx.com/delete");
+        OrgsRepo orgsRepo = new OrgsRepo("gepaplexx-demos", "https://api.github.com/orgs/gepaplexx-demos");
         Repository repository = new Repository("gepardenblick", "https://github.com/gepaplexx-demos/gepardenblick", testPermissions);
         SourceHook sourceHook = new SourceHook(Boolean.TRUE, testConfig);
         testFacadeHook.add(sourceHook);
+        testFacadeRepoHooks.add(repository);
+        testFacadeOrg.add(orgsRepo);
         expectedResponseHooks.put(repository.name, sourceHook.config);
-        Mockito.when(sourceHookService.getHookByRepos("gepaplexx-demos", repository.name)).thenReturn(testFacadeHook);
+        Mockito.when(repositoryService.getReposByOrg(orgsRepo.login)).thenReturn(testFacadeRepoHooks);
+        Mockito.when(sourceHookService.getHookByRepos(orgsRepo.login, repository.name)).thenReturn(testFacadeHook);
+        Mockito.when(orgsRepoService.getOrgByToken()).thenReturn(testFacadeOrg);
 
-        Assertions.assertEquals(facadeResource.getHookByRepos("gepaplexx-demos"), mapper.writeValueAsString(expectedResponseHooks));
+        Assertions.assertEquals(facadeResource.getHookByRepos(orgsRepo.login), mapper.writeValueAsString(expectedResponseHooks));
     }
 
     @Test
@@ -82,10 +93,12 @@ public class FacadeResourceTest {
         OrgsRepo orgsRepo = new OrgsRepo("gepaplexx-demos", "https://api.github.com/orgs/gepaplexx-demos");
         Repository repository = new Repository("gepardenblick", "https://github.com/gepaplexx-demos/gepardenblick", testPermissions);
         testFacadeRepo.add(repository);
-        expectedResponse.put(orgsRepo.login, repository.name);
+        testFacadeOrg.add(orgsRepo);
+        expectedResponseRepo.put(orgsRepo.login, Collections.singletonList(repository.name));
         Mockito.when(repositoryService.getReposByOrgs(orgsRepo.login)).thenReturn(testFacadeRepo);
+        Mockito.when(orgsRepoService.getOrgByToken()).thenReturn(testFacadeOrg);
 
-        Assertions.assertEquals(facadeResource.getReposFromOrgs(), mapper.writeValueAsString(expectedResponse));
+        Assertions.assertEquals(facadeResource.getReposFromOrgs(), mapper.writeValueAsString(expectedResponseRepo));
     }
 
     @Test
@@ -96,10 +109,14 @@ public class FacadeResourceTest {
         Repository repository = new Repository("gepardenblick", "https://github.com/gepaplexx-demos/gepardenblick", testPermissions);
         SourceHook sourceHook = new SourceHook(Boolean.TRUE, testConfig);
         testFacadeHook.add(sourceHook);
+        testFacadeRepoHooks.add(repository);
+        testFacadeOrg.add(orgsRepo);
         expectedResponseHooks.put(orgsRepo.login, sourceHook.config);
         Mockito.when(sourceHookService.getHookByRepos(orgsRepo.login, repository.name)).thenReturn(testFacadeHook);
+        Mockito.when(repositoryService.getReposByOrg(orgsRepo.login)).thenReturn(testFacadeRepoHooks);
+        Mockito.when(orgsRepoService.getOrgByToken()).thenReturn(testFacadeOrg);
 
-        Assertions.assertEquals(facadeResource.getAllHooks(), mapper.writeValueAsString(expectedResponse));
+        Assertions.assertEquals(facadeResource.getAllHooks(), mapper.writeValueAsString(expectedResponseHooks));
     }
 
 }
