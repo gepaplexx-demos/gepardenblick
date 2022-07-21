@@ -70,7 +70,7 @@ public class FacadeResource {
 
     @GET
     @Path("/orgs/repos/hooks")
-    public String getHooksFromOrgs() throws JsonProcessingException {
+    public String getAllHooks() throws JsonProcessingException {
         HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToke();
         HashMap<String, List<String>> repoMap = new HashMap<>();
         HashSet<Repository> resRepo;

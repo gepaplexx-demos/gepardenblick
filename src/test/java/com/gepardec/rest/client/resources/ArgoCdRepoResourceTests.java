@@ -48,7 +48,7 @@ public class ArgoCdRepoResourceTests {
     }
 
     @Test
-    public void whenGetOrgsByToke_thenReturnValidJsonOfSingleOrg() throws JsonProcessingException {
+    public void whenGetArgoCD_thenReturnValidJsonOfSingleArgoCD() throws JsonProcessingException {
         testItemsList.add(testItem);
         ArgoCdRepo argoCdRepo = new ArgoCdRepo(testItemsList);
         testArgo.add(argoCdRepo);
