@@ -13,6 +13,7 @@ import io.quarkus.test.junit.mockito.InjectMock;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -22,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @QuarkusTest
+@Disabled
 public class FacadeResourceTest {
 
     @InjectMock
