@@ -6,7 +6,6 @@
   <artifactId>gepardenblick</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <properties>
-    <blubb>${session.request.userSettingsFile.path}</blubb>
     <compiler-plugin.version>3.10.1</compiler-plugin.version>
     <maven.compiler.release>8</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -112,8 +111,6 @@
         <configuration>
           <systemPropertyVariables>
             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-            <maven.home>${maven.home}</maven.home>
-            <maven.settings>${session.request.userSettingsFile.path}</maven.settings>
           </systemPropertyVariables>
         </configuration>
       </plugin>
@@ -130,7 +127,6 @@
               <systemPropertyVariables>
                 <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
                 <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                <maven.home>3.10.1</maven.home>
               </systemPropertyVariables>
             </configuration>
           </execution>
