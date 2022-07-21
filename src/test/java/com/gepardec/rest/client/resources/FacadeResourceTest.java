@@ -24,15 +24,15 @@ import java.util.List;
 @QuarkusTest
 public class FacadeResourceTest {
 
-    @InjectMock(convertScopes = true)
+    @InjectMock
     @RestClient
     IOrgsRepoService orgsRepoService;
 
-    @InjectMock(convertScopes = true)
+    @InjectMock
     @RestClient
     ISourceHookService sourceHookService;
 
-    @InjectMock(convertScopes = true)
+    @InjectMock
     @RestClient
     IRepositoryService repositoryService;
 
