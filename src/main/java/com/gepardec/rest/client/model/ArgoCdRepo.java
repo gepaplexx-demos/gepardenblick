@@ -11,4 +11,7 @@ public class ArgoCdRepo {
     public ArgoCdRepo(List<Items> items) {
         this.items = items;
     }
+
+    public ArgoCdRepo() {
+    }
 }
