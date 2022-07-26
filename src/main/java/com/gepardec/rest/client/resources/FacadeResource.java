@@ -48,8 +48,7 @@ public class FacadeResource {
                 hookMap.put(repo.name, hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));
             }
             else{
-                List<String> Lnull = null;
-                hookMap.put(repo.name, Lnull);
+                hookMap.put(repo.name, null);
             }
         }
 
@@ -70,12 +69,11 @@ public class FacadeResource {
 
     @GET
     @Path("/orgs/repos/hooks")
-    public String getHooksFromOrgs() throws JsonProcessingException {
+    public String getAllHooks() throws JsonProcessingException {
         HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToken();
         HashSet<Repository> resRepo;
         HashMap<String, List<String>> hookMap = new HashMap<>();
         for (OrgsRepo orgs:resOrgs) {
-            List<Repository> repos = repositoryService.getReposByOrgs(orgs.login);
             resRepo = repositoryService.getReposByOrg(orgs.login);
             for (Repository repo:resRepo) {
                 if (repo.permissions.get("admin").equals("true")){
@@ -83,10 +81,8 @@ public class FacadeResource {
                     hookMap.put(orgs.login, hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));
                 }
                 else{
-                    List<String> Lnull = null;
-                    hookMap.put(orgs.login, Lnull);
+                    hookMap.put(orgs.login, null);
                 }
-
             }
         }
         return mapper.writeValueAsString(hookMap);

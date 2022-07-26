@@ -13,7 +13,6 @@ public class Repository {
         this.html_url = html_url;
         this.permissions = permissions;
     }
-
 }
 
 
