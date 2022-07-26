@@ -8,10 +8,6 @@ public class ArgoCdRepo {
 
     public List<Items> items;
 
-//    public ArgoCdRepo(List<Items> items) {
-//        this.items = items;
-//    }
-
     public ArgoCdRepo() {
     }
 }

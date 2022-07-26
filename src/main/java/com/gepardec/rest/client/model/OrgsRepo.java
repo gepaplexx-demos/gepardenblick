@@ -8,7 +8,4 @@ public class OrgsRepo {
         this.login = login;
         this.url = url;
     }
-
-//    public OrgsRepo() {
-//    }
 }

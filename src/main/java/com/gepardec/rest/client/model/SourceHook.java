@@ -10,9 +10,6 @@ public class SourceHook {;
         this.active = active;
         this.config = config;
     }
-
-//    public SourceHook() {
-//    }
 }
 
 
