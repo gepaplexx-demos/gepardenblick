@@ -7,12 +7,15 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import java.util.HashSet;
 import java.util.List;
+
 @Path("/orgs")
 @RegisterRestClient
+@ApplicationScoped
 @RegisterClientHeaders(RequestAuthorizationHeaderFactory.class)
 public interface IRepositoryService {
 
@@ -24,3 +27,4 @@ public interface IRepositoryService {
     @Path("/{orgs}/repos")
     List<Repository> getReposByOrgs(@PathParam String orgs);
 }
+

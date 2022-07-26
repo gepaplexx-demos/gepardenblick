@@ -8,4 +8,6 @@ public class ArgoCdRepo {
 
     public List<Items> items;
 
+    public ArgoCdRepo() {
+    }
 }

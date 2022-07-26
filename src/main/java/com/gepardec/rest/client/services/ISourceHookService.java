@@ -7,11 +7,13 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.*;
 import java.util.*;
 
 @Path("/repos")
 @RegisterRestClient
+@ApplicationScoped
 @RegisterClientHeaders(RequestAuthorizationHeaderFactory.class)
 public interface ISourceHookService {
 
