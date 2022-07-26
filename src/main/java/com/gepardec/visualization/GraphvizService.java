@@ -6,8 +6,8 @@ import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.Graph;
 import guru.nidi.graphviz.model.Node;
 
-import java.io.File;
-import java.io.IOException;
+import javax.enterprise.context.ApplicationScoped;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,9 +18,10 @@ import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;
 import static guru.nidi.graphviz.model.Link.to;
 
+@ApplicationScoped
 public class GraphvizService {
 
-    public void drawGraph(HashMap<String, String> allRepos) {
+    public BufferedImage drawGraphFromSimpleStringHashMap(HashMap<String, String> allRepos) {
 
         List<Node> nodeList = new ArrayList<>();
 
@@ -37,10 +38,34 @@ public class GraphvizService {
                         nodeList
                 );
 
-        try {
-            Graphviz.fromGraph(g).height(1000).render(Format.PNG).toFile(new File("example/ex1.png"));
-        } catch (IOException ex) {
-            System.err.println("ERROR");
+        return Graphviz.fromGraph(g).height(1000).render(Format.PNG).toImage();
+    }
+
+    public BufferedImage drawGraphFromComplexStringHashMap(HashMap<String, List<String>> allHooks) {
+
+        List<Node> nodeList = new ArrayList<>();
+
+        for (Map.Entry<String,List<String>> entry : allHooks.entrySet()) {
+            List<String> hooks = entry.getValue();
+
+            if(hooks == null) {
+                continue;
+            }
+
+            for (String hook : hooks) {
+                Node n = node(entry.getKey()).link(to(node(hook)));
+                nodeList.add(n);
+            }
         }
+
+        Graph g = graph("example1").directed()
+                .graphAttr().with(Rank.dir(LEFT_TO_RIGHT))
+                //.nodeAttr().with(Font.name("arial"))
+                .linkAttr().with("class", "link-class")
+                .with(
+                        nodeList
+                );
+
+        return Graphviz.fromGraph(g).height(1000).render(Format.PNG).toImage();
     }
 }
