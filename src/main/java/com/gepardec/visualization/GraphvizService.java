@@ -68,4 +68,23 @@ public class GraphvizService {
 
         return Graphviz.fromGraph(g).height(1000).render(Format.PNG).toImage();
     }
+
+    public BufferedImage drawGraphFromBooleanHashMap(HashMap<String, Boolean> allRepos) {
+
+        List<Node> nodeList = new ArrayList<>();
+
+        for (Map.Entry<String,Boolean> entry : allRepos.entrySet()) {
+            Boolean hooks = entry.getValue();
+        }
+
+        Graph g = graph("example1").directed()
+                .graphAttr().with(Rank.dir(LEFT_TO_RIGHT))
+                //.nodeAttr().with(Font.name("arial"))
+                .linkAttr().with("class", "link-class")
+                .with(
+                        nodeList
+                );
+
+        return Graphviz.fromGraph(g).height(1000).render(Format.PNG).toImage();
+    }
 }
