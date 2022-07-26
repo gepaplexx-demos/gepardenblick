@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gepardec.rest.client.model.ArgoCdRepo;
 import com.gepardec.rest.client.services.IArgoCdRepoService;
+import com.gepardec.visualization.GraphvizService;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.inject.Inject;
@@ -35,6 +36,9 @@ public class ArgoCdRepoResource {
 
         HashMap<String, String> result = new HashMap<>();
         repos.forEach(repo -> repo.items.forEach(item -> result.put(item.name, item.repoURL)));
+
+        GraphvizService graphvizService = new GraphvizService();
+        graphvizService.drawGraph(result);
 
         return mapper.writeValueAsString(result);
     }

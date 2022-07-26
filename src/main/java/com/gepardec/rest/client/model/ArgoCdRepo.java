@@ -11,6 +11,4 @@ public class ArgoCdRepo {
     public ArgoCdRepo() {
     }
 
-    public ArgoCdRepo() {
-    }
 }
