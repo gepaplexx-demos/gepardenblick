@@ -9,6 +9,6 @@ public class OrgsRepo {
         this.url = url;
     }
 
-    public OrgsRepo() {
-    }
+//    public OrgsRepo() {
+//    }
 }
