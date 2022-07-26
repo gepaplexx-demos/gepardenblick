@@ -21,7 +21,6 @@ import javax.inject.Inject;
 import java.util.*;
 
 @QuarkusTest
-@Disabled
 public class FacadeResourceTest {
 
     @InjectMock
@@ -69,23 +68,23 @@ public class FacadeResourceTest {
         expectedResponseRepo = new HashMap<>();
     }
 
-    /*@Test
+    @Test
     public void whenGetHooksByRepos_thenReturnValidJsonOfHooks() throws JsonProcessingException {
         testPermissions.put("admin", "true");
-        testConfig.put("https://gepardenblick.apps.play.gepaplexx.com/push", "https://gepardenblick.apps.play.gepaplexx.com/delete");
+        testConfig.put("url", "https://gepardenblick.apps.play.gepaplexx.com/push");
         OrgsRepo orgsRepo = new OrgsRepo("gepaplexx-demos", "https://api.github.com/orgs/gepaplexx-demos");
         Repository repository = new Repository("gepardenblick", "https://github.com/gepaplexx-demos/gepardenblick", testPermissions);
         SourceHook sourceHook = new SourceHook(Boolean.TRUE, testConfig);
         testFacadeHook.add(sourceHook);
         testFacadeRepoHooks.add(repository);
         testFacadeOrg.add(orgsRepo);
-        expectedResponseHooks.put(repository.name, sourceHook.config);
+        expectedResponseHooks.put(repository.name, Collections.singletonList(sourceHook.config.get("url")));
         Mockito.when(repositoryService.getReposByOrg(orgsRepo.login)).thenReturn(testFacadeRepoHooks);
         Mockito.when(sourceHookService.getHookByRepos(orgsRepo.login, repository.name)).thenReturn(testFacadeHook);
         Mockito.when(orgsRepoService.getOrgByToken()).thenReturn(testFacadeOrg);
 
         Assertions.assertEquals(facadeResource.getHookByRepos(orgsRepo.login), mapper.writeValueAsString(expectedResponseHooks));
-    } */
+    }
 
     @Test
     public void whenGetReposFromOrgs_thenReturnValidJsonOfRepos() throws JsonProcessingException {
