@@ -82,8 +82,7 @@ public class FacadeResource {
                     hookMap.put(orgs.login, hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));
                 }
                 else{
-                    List<String> Lnull = null;
-                    hookMap.put(orgs.login, Lnull);
+                    hookMap.put(orgs.login, null);
                 }
             }
         }
