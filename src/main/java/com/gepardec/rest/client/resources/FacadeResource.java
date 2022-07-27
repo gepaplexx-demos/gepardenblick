@@ -49,7 +49,7 @@ public class FacadeResource {
     @GET
     @Path("/{org}/hooks")
     @Produces("application/json")
-    public String getHookByRepos(@PathParam String org) throws JsonProcessingException {
+    public String getHooksByOrg(@PathParam String org) throws JsonProcessingException {
         HashSet<Repository> res = repositoryService.getReposByOrg(org);
         HashMap<String, List<String>> hookMap = new HashMap<>();
         for (Repository repo:res) {
@@ -67,7 +67,7 @@ public class FacadeResource {
     @GET
     @Path("/{org}/hooks/graph")
     @Produces({"image/svg+xml"})
-    public Response getHookByReposGraph(@PathParam String org) throws IOException {
+    public Response getHooksByOrgGraph(@PathParam String org) {
         HashSet<Repository> res = repositoryService.getReposByOrg(org);
         HashMap<String, List<String>> hookMap = new HashMap<>();
         for (Repository repo:res) {
@@ -98,7 +98,7 @@ public class FacadeResource {
     @GET
     @Path("/orgs/repos/graph")
     @Produces({"image/svg+xml"})
-    public Response getReposFromOrgsGraph() throws IOException {
+    public Response getReposFromOrgsGraph() {
         HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToken();
         HashMap<String, List<String>> repoMap = new HashMap<>();
         for (OrgsRepo orgs:resOrgs) {
@@ -138,7 +138,7 @@ public class FacadeResource {
     @GET
     @Path("/orgs/repos/hooks/graph")
     @Produces({"image/svg+xml"})
-    public Response getAllHooksGraph() throws IOException {
+    public Response getAllHooksGraph() {
 
         HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToken();
         HashSet<Repository> resRepo;

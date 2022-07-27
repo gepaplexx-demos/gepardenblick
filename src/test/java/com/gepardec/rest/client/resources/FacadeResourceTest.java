@@ -47,8 +47,6 @@ public class FacadeResourceTest {
     private HashSet<OrgsRepo> testFacadeOrg;
     private HashMap<String, String> testConfig;
     private HashMap<String, String> testPermissions;
-    private HashMap<String,  String> expectedResponse;
-
     private HashMap<String,  List<String>> expectedResponseRepo;
     private HashMap<String,  List<String>> expectedResponseHooks;
 
@@ -61,7 +59,6 @@ public class FacadeResourceTest {
         testFacadeRepoHooks = new HashSet<>();
         testFacadeOrg = new HashSet<>();
         testConfig = new HashMap<>();
-        expectedResponse = new HashMap<>();
         expectedResponseHooks = new HashMap<>();
         testPermissions = new HashMap<>();
         expectedResponseRepo = new HashMap<>();
@@ -82,7 +79,7 @@ public class FacadeResourceTest {
         Mockito.when(sourceHookService.getHookByRepos(orgsRepo.login, repository.name)).thenReturn(testFacadeHook);
         Mockito.when(orgsRepoService.getOrgByToken()).thenReturn(testFacadeOrg);
 
-        Assertions.assertEquals(facadeResource.getHookByRepos(orgsRepo.login), mapper.writeValueAsString(expectedResponseHooks));
+        Assertions.assertEquals(facadeResource.getHooksByOrg(orgsRepo.login), mapper.writeValueAsString(expectedResponseHooks));
     }
 
     @Test

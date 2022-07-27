@@ -42,9 +42,9 @@
             <li><a href="#" onclick="getAllHooks()">Hooks from Organisations</a></li>
             <li>
                 <form>
-                    <input type="text" id="orgRepo" name="orgRepo" placeholder="Organisation for Hooks:" class="getHookByRepos()" onkeydown="getHookByRepos(this)">
-                    <input type="text" id="orgHook" name="orgHook" placeholder="Organisation for Repositories:" class="getHookByRepos()" onkeydown="getReposByOrg(this)">
-                    <input type="text" id="Hook" name="Hook" placeholder="Owner/Repo for Hooks :" class="getHookByRepos()" onkeydown="getHookByOwnerAndRepo(this)">
+                    <label for="orgRepo">Find Hooks by Organization</label><input type="text" id="orgRepo" name="orgRepo" placeholder="gepaplexx-demos" class="getHooksByOrg" onkeydown="getHooksByOrg(this)">
+                    <label for="orgHook">Find Repos by Organization</label><input type="text" id="orgHook" name="orgHook" placeholder="gepaplexx-demos" class="getReposByOrg" onkeydown="getReposByOrg(this)">
+                    <label for="Hook">Find Hooks for Owner and Repo</label><input type="text" id="Hook" name="Hook" placeholder="gepaplexx-demos/gepardenblick" class="getHookByRepos" onkeydown="getHookByOwnerAndRepo(this)">
                 </form>
             </li>
         </ul>
@@ -74,34 +74,31 @@
                     document.getElementById("dia").src = "/facade/orgs/repos/hooks/graph";
                     document.getElementById("name").innerHTML = "Hooks from Organisations";
                 }
-                function getHookByRepos(ele) {
+                function getHooksByOrg(ele) {
                     if (event.key === 'Enter'){
                         document.getElementById("dia").src =  "/facade/" + ele.value + "/hooks/graph";
-                        document.getElementById("name").innerHTML = "Hooks From " + ele.value;
+                        document.getElementById("name").innerHTML = "Hooks from " + ele.value;
                         ele.value = "";
-                        document.getElementById("orgRepo").blur();
-
+                        document.body.classList.remove("is-menu-visible"); <!-- removes class "is-menu-visible from body such that the nav/menu closes on 'Enter' -->
                     }
                 }
                 function getReposByOrg(ele) {
                     if (event.key === 'Enter'){
                         document.getElementById("dia").src =  "/repo/" + ele.value + "/graph";
-                        document.getElementById("name").innerHTML = "Repos From " + ele.value;
+                        document.getElementById("name").innerHTML = "Repos from " + ele.value;
                         ele.value = "";
-                        document.getElementById("orgHook").blur();
+                        document.body.classList.remove("is-menu-visible");
                     }
                 }
                 function getHookByOwnerAndRepo(ele) {
                     if (event.key === 'Enter'){
                         document.getElementById("dia").src =  "/repo/" + ele.value + "/hooks/graph";
-                        document.getElementById("name").innerHTML = "Hooks From " + ele.value;
+                        document.getElementById("name").innerHTML = "Hooks from " + ele.value;
                         ele.value = "";
-                        document.getElementById("Hook").blur();
-
+                        document.body.classList.remove("is-menu-visible");
                     }
                 }
             </script>
-
         </div>
     </div>
 
