@@ -33,6 +33,7 @@ public class OrgsRepoResource {
 
     @GET
     @Path("/orgs")
+    @Produces("application/json")
     public String getOrgByToken() throws JsonProcessingException {
         HashSet<OrgsRepo> resOrg =  orgsRepoService.getOrgByToken();
         HashMap<String, String> orgs = new HashMap<>();
@@ -42,18 +43,12 @@ public class OrgsRepoResource {
 
     @GET
     @Path("/orgs/graph")
-    @Produces({"image/png"})
+    @Produces({"image/svg+xml"})
     public Response getOrgByTokenGraph() throws IOException {
         HashSet<OrgsRepo> resOrg =  orgsRepoService.getOrgByToken();
         HashMap<String, String> orgs = new HashMap<>();
         resOrg.forEach(elem -> orgs.put(elem.login, elem.url));
 
-        BufferedImage image = graphvizService.drawGraphFromSimpleStringHashMap(orgs);
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", outputStream);
-        byte[] imageData = outputStream.toByteArray();
-
-        return Response.ok(imageData).build();
+        return Response.ok(graphvizService.drawGraphFromSimpleStringHashMap(orgs)).build();
     }
 }

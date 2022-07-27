@@ -51,6 +51,7 @@ public class FacadeResource {
 
     @GET
     @Path("/{org}/hooks")
+    @Produces("application/json")
     public String getHookByRepos(@PathParam String org) throws JsonProcessingException {
         HashSet<Repository> res = repositoryService.getReposByOrg(org);
         HashMap<String, List<String>> hookMap = new HashMap<>();
@@ -68,7 +69,7 @@ public class FacadeResource {
 
     @GET
     @Path("/{org}/hooks/graph")
-    @Produces({"image/png"})
+    @Produces({"image/svg+xml"})
     public Response getHookByReposGraph(@PathParam String org) throws IOException {
         HashSet<Repository> res = repositoryService.getReposByOrg(org);
         HashMap<String, List<String>> hookMap = new HashMap<>();
@@ -81,17 +82,12 @@ public class FacadeResource {
             }
         }
 
-        BufferedImage image = graphvizService.drawGraphFromComplexStringHashMap(hookMap);
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", outputStream);
-        byte[] imageData = outputStream.toByteArray();
-
-        return Response.ok(imageData).build();
+        return Response.ok(graphvizService.drawGraphFromComplexStringHashMap(hookMap)).build();
     }
 
     @GET
     @Path("/orgs/repos")
+    @Produces("application/json")
     public String getReposFromOrgs() throws JsonProcessingException {
         HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToken();
         HashMap<String, List<String>> repoMap = new HashMap<>();
@@ -104,7 +100,7 @@ public class FacadeResource {
 
     @GET
     @Path("/orgs/repos/graph")
-    @Produces({"image/png"})
+    @Produces({"image/svg+xml"})
     public Response getReposFromOrgsGraph() throws IOException {
         HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToken();
         HashMap<String, List<String>> repoMap = new HashMap<>();
@@ -113,17 +109,12 @@ public class FacadeResource {
             repoMap.put(orgs.login, repos.stream().map(x -> x.name).collect(Collectors.toList()));
         }
 
-        BufferedImage image = graphvizService.drawGraphFromComplexStringHashMap(repoMap);
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", outputStream);
-        byte[] imageData = outputStream.toByteArray();
-
-        return Response.ok(imageData).build();
+        return Response.ok(graphvizService.drawGraphFromComplexStringHashMap(repoMap)).build();
     }
 
     @GET
     @Path("/orgs/repos/hooks")
+    @Produces("application/json")
     public String getAllHooks() throws JsonProcessingException {
         HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToken();
         HashSet<Repository> resRepo;
@@ -149,7 +140,7 @@ public class FacadeResource {
 
     @GET
     @Path("/orgs/repos/hooks/graph")
-    @Produces({"image/png"})
+    @Produces({"image/svg+xml"})
     public Response getAllHooksGraph() throws IOException {
 
         HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToken();
@@ -171,12 +162,6 @@ public class FacadeResource {
             }
         }
 
-        BufferedImage image = graphvizService.drawGraphFromComplexStringHashMap(hookMap);
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", outputStream);
-        byte[] imageData = outputStream.toByteArray();
-
-        return Response.ok(imageData).build();
+        return Response.ok(graphvizService.drawGraphFromComplexStringHashMap(hookMap)).build();
     }
 }

@@ -32,6 +32,7 @@ public class RepositoryResource {
 
     @GET
     @Path("/{org}")
+    @Produces("application/json")
     public String getReposByOrg(@PathParam String org) throws JsonProcessingException {
         HashSet<Repository> res =  repositoryService.getReposByOrg(org);
         HashMap<String, String> repos = new HashMap<>();
@@ -41,18 +42,12 @@ public class RepositoryResource {
 
     @GET
     @Path("/{org}/graph")
-    @Produces({"image/png"})
-    public Response getReposByOrgGraph(@PathParam String org) throws IOException {
+    @Produces({"image/svg+xml"})
+    public Response getReposByOrgGraph(@PathParam String org) {
         HashSet<Repository> res =  repositoryService.getReposByOrg(org);
         HashMap<String, String> repos = new HashMap<>();
         res.forEach(elem -> repos.put(elem.name, elem.html_url));
 
-        BufferedImage image = graphvizService.drawGraphFromSimpleStringHashMap(repos);
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", outputStream);
-        byte[] imageData = outputStream.toByteArray();
-
-        return Response.ok(imageData).build();
+        return Response.ok(graphvizService.drawGraphFromSimpleStringHashMap(repos)).build();
     }
 }

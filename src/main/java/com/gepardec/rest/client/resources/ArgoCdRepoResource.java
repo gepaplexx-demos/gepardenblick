@@ -35,6 +35,7 @@ public class ArgoCdRepoResource {
 
     @GET
     @Path("/repos")
+    @Produces("application/json")
     public String getAllRepos() throws JsonProcessingException {
 
         String response =  argoCdRepoService.getAllRepos();
@@ -50,7 +51,7 @@ public class ArgoCdRepoResource {
 
     @GET
     @Path("/repos/graph")
-    @Produces({"image/png"})
+    @Produces({"image/svg+xml"})
     public Response getAllReposGraph() throws IOException {
 
         String response =  argoCdRepoService.getAllRepos();
@@ -62,12 +63,6 @@ public class ArgoCdRepoResource {
         HashMap<String, String> result = new HashMap<>();
         repos.forEach(repo -> repo.items.forEach(item -> result.put(item.name, item.repoURL)));
 
-        BufferedImage image = graphvizService.drawGraphFromSimpleStringHashMap(result);
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", outputStream);
-        byte[] imageData = outputStream.toByteArray();
-
-        return Response.ok(imageData).build();
+        return Response.ok(graphvizService.drawGraphFromSimpleStringHashMap(result)).build();
     }
 }

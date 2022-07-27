@@ -35,6 +35,7 @@ public class SourceHookResource {
 
     @GET
     @Path("/{owner}/{rep}/hooks")
+    @Produces("application/json")
     public String getHookByOwnerAndRepo(@PathParam String owner, String rep) throws JsonProcessingException {
         Set<SourceHook> res =  souceHookService.getHookByOwnerAndRepo(owner, rep);
         HashMap<String, Boolean> hooks = new HashMap<>();
@@ -46,19 +47,14 @@ public class SourceHookResource {
 
     @GET
     @Path("/{owner}/{rep}/hooks/graph")
-    @Produces({"image/png"})
-    public Response getHookByOwnerAndRepoGraph(@PathParam String owner, String rep) throws IOException {
+    @Produces({"image/svg+xml"})
+    public Response getHookByOwnerAndRepoGraph(@PathParam String owner, String rep) {
         Set<SourceHook> res =  souceHookService.getHookByOwnerAndRepo(owner, rep);
         HashMap<String, Boolean> hooks = new HashMap<>();
         for (SourceHook s: res) {
             hooks.put(s.config.get("url"), s.active);
         }
-        BufferedImage image = graphvizService.drawGraphFromBooleanHashMap(hooks);
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", outputStream);
-        byte[] imageData = outputStream.toByteArray();
-
-        return Response.ok(imageData).build();
+        return Response.ok(graphvizService.drawGraphFromBooleanHashMap(hooks)).build();
     }
 }

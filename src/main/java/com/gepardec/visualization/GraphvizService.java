@@ -7,7 +7,6 @@ import guru.nidi.graphviz.model.Graph;
 import guru.nidi.graphviz.model.Node;
 
 import javax.enterprise.context.ApplicationScoped;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +20,7 @@ import static guru.nidi.graphviz.model.Link.to;
 @ApplicationScoped
 public class GraphvizService {
 
-    public BufferedImage drawGraphFromSimpleStringHashMap(HashMap<String, String> allRepos) {
+    public String drawGraphFromSimpleStringHashMap(HashMap<String, String> allRepos) {
 
         List<Node> nodeList = new ArrayList<>();
 
@@ -38,10 +37,10 @@ public class GraphvizService {
                         nodeList
                 );
 
-        return Graphviz.fromGraph(g).height(1000).render(Format.PNG).toImage();
+        return Graphviz.fromGraph(g).render(Format.SVG_STANDALONE).toString();
     }
 
-    public BufferedImage drawGraphFromComplexStringHashMap(HashMap<String, List<String>> allHooks) {
+    public String drawGraphFromComplexStringHashMap(HashMap<String, List<String>> allHooks) {
 
         List<Node> nodeList = new ArrayList<>();
 
@@ -66,10 +65,10 @@ public class GraphvizService {
                         nodeList
                 );
 
-        return Graphviz.fromGraph(g).height(1000).render(Format.PNG).toImage();
+        return Graphviz.fromGraph(g).render(Format.SVG_STANDALONE).toString();
     }
 
-    public BufferedImage drawGraphFromBooleanHashMap(HashMap<String, Boolean> allRepos) {
+    public String drawGraphFromBooleanHashMap(HashMap<String, Boolean> allRepos) {
 
         List<Node> nodeList = new ArrayList<>();
 
@@ -86,6 +85,6 @@ public class GraphvizService {
                         nodeList
                 );
 
-        return Graphviz.fromGraph(g).height(1000).render(Format.PNG).toImage();
+        return Graphviz.fromGraph(g).render(Format.SVG_STANDALONE).toString();
     }
 }
