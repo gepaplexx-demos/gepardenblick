@@ -39,10 +39,10 @@
     <nav id="menu">
         <h2>Menu</h2>
         <ul class="menu-sub-list">
-            <li><a id="getAllRepos" href="#" onclick=srcl.set("/argo/repos/graph")>ArgoCD</a></li>
-            <li><a id="getOrgByToken" href="#" onclick=srcl.set("/user/orgs/graph")>Organisation</a></li>
-            <li><a id="getReposFromOrgs" href="#" onclick=srcl.set("/facade/orgs/repos/graph")>Repositories from Organisations</a></li>
-            <li><a id="getAllHooks" href="#" onclick=srcl.set("/facade/orgs/repos/hooks/graph")>Hooks from Organisations</a></li>
+            <li><a href="#" onclick="getAllRepos()">ArgoCD</a></li>
+            <li><a href="#" onclick="getOrgByToken()">Organisation</a></li>
+            <li><a href="#" onclick="getReposFromOrgs()">Repositories from Organisations</a></li>
+            <li><a href="#" onclick="getElementById()">Hooks from Organisations</a></li>
         </ul>
     </nav>
 
@@ -53,22 +53,29 @@
             <h1>Connections</h1>
             <span class="image main"><img id="dia" src="" alt=""/></span>
             <script>
-                if (document.getElementById("getAllRepos").onclick) {
-                    srcl = "/argo/repos/graph";
+                function getAllRepos() {
+                    document.getElementById("dia").src = "/argo/repos/graph";
                 }
-                else if (document.getElementById("getOrgByToken").onclick) {
-                    scrl = "/user/orgs/graph";
+                function getOrgByToken() {
+                    document.getElementById("dia").src = "/user/orgs/graph";
                 }
-                else if (document.getElementById("getReposFromOrgs").onclick) {
-                    scrl = "/facade/orgs/repos/graph";
+                function getReposFromOrgs() {
+                    document.getElementById("dia").src = "/facade/orgs/repos/graph";
                 }
-                else if (document.getElementById("getAllHooks").onclick) {
-                    scrl = "/facade/orgs/repos/hooks/graph";
+                function getAllHooks() {
+                    document.getElementById("dia").src = "/facade/orgs/repos/hooks/graph";
                 }
-                else{
-                    srcl = null
-                }
-                document.getElementById("dia").src = "" + srcl +"";
+
+                // else if (document.getElementById("getReposFromOrgs").clicked = true) {
+                //     srcl = "/facade/orgs/repos/graph";
+                // }
+                // else if (document.getElementById("getAllHooks").clicked = true) {
+                //     srcl = "/facade/orgs/repos/hooks/graph";
+                // }
+                // else{
+                //     srcl = null
+                // }
+                // document.getElementById("dia").src = "" + srcl +"";
             </script>
 
         </div>
