@@ -11,7 +11,6 @@ import com.gepardec.rest.client.services.ISourceHookService;
 import com.gepardec.visualization.GraphvizService;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
-import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,8 +19,6 @@ import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
