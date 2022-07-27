@@ -79,6 +79,8 @@
                         document.getElementById("dia").src =  "/facade/" + ele.value + "/hooks/graph";
                         document.getElementById("name").innerHTML = "Hooks From " + ele.value;
                         ele.value = "";
+                        document.getElementById("orgRepo").blur();
+
                     }
                 }
                 function getReposByOrg(ele) {
@@ -86,6 +88,7 @@
                         document.getElementById("dia").src =  "/repo/" + ele.value + "/graph";
                         document.getElementById("name").innerHTML = "Repos From " + ele.value;
                         ele.value = "";
+                        document.getElementById("orgHook").blur();
                     }
                 }
                 function getHookByOwnerAndRepo(ele) {
@@ -93,6 +96,8 @@
                         document.getElementById("dia").src =  "/repo/" + ele.value + "/hooks/graph";
                         document.getElementById("name").innerHTML = "Hooks From " + ele.value;
                         ele.value = "";
+                        document.getElementById("Hook").blur();
+
                     }
                 }
             </script>
