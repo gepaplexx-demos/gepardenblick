@@ -38,16 +38,6 @@
   </dependencyManagement>
   <dependencies>
     <dependency>
-      <groupId>com.eclipsesource.j2v8</groupId>
-      <artifactId>j2v8_android</artifactId>
-      <version>3.0.2</version>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-resteasy-reactive-jsonb</artifactId>
-      <version>2.11.0.Final</version>
-    </dependency>
-    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-reactive</artifactId>
     </dependency>
@@ -84,16 +74,6 @@
     <dependency>
       <groupId>guru.nidi</groupId>
       <artifactId>graphviz-java</artifactId>
-      <version>0.18.1</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>1.2.3</version>
-    </dependency>
-    <dependency>
-      <groupId>guru.nidi</groupId>
-      <artifactId>graphviz-rough</artifactId>
       <version>0.18.1</version>
     </dependency>
   </dependencies>
