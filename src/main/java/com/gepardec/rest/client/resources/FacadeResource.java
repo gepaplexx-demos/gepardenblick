@@ -58,8 +58,7 @@ public class FacadeResource {
             if (repo.permissions.get("admin").equals("true")){
                 List<SourceHook> hooks = sourceHookService.getHookByRepos(org, repo.name);
                 hookMap.put(repo.name, hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));
-            }
-            else{
+            } else{
                 hookMap.put(repo.name, null);
             }
         }
@@ -71,15 +70,13 @@ public class FacadeResource {
     @Path("/{org}/hooks/graph")
     @Produces({"image/png"})
     public Response getHookByReposGraph(@PathParam String org) throws IOException {
-
         HashSet<Repository> res = repositoryService.getReposByOrg(org);
         HashMap<String, List<String>> hookMap = new HashMap<>();
         for (Repository repo:res) {
             if (repo.permissions.get("admin").equals("true")){
                 List<SourceHook> hooks = sourceHookService.getHookByRepos(org, repo.name);
                 hookMap.put(repo.name, hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));
-            }
-            else{
+            } else {
                 hookMap.put(repo.name, null);
             }
         }
@@ -136,16 +133,19 @@ public class FacadeResource {
             for (Repository repo:resRepo) {
                 if (repo.permissions.get("admin").equals("true")){
                     List<SourceHook> hooks = sourceHookService.getHookByRepos(orgs.login, repo.name);
-                    hookMap.put(orgs.login, hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));
-                }
-                else{
-                    hookMap.put(orgs.login, null);
-                }
+                    List<String> urls = hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList());
+
+                    // Map.put overrides values when there already exists a mapping for a given key
+                    if(hookMap.get(orgs.login) == null) {
+                        hookMap.put(orgs.login, urls);
+                    } else {
+                        hookMap.get(orgs.login).addAll(urls);
+                    }
+                }// else removed here; would override existing hook list with null -> just ignore and proceed
             }
         }
         return mapper.writeValueAsString(hookMap);
     }
-
 
     @GET
     @Path("/orgs/repos/hooks/graph")
@@ -160,10 +160,13 @@ public class FacadeResource {
             for (Repository repo:resRepo) {
                 if (repo.permissions.get("admin").equals("true")){
                     List<SourceHook> hooks = sourceHookService.getHookByRepos(orgs.login, repo.name);
-                    hookMap.put(orgs.login, hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList()));
-                }
-                else{
-                    hookMap.put(orgs.login, null);
+                    List<String> urls = hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList());
+
+                    if(hookMap.get(orgs.login) == null) {
+                        hookMap.put(orgs.login, urls);
+                    } else {
+                        hookMap.get(orgs.login).addAll(urls);
+                    }
                 }
             }
         }
