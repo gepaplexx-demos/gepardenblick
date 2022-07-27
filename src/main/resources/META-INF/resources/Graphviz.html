@@ -32,9 +32,6 @@
         </div>
     </header>
 
-
-
-    <script>var srcl</script>
     <!-- Menu -->
     <nav id="menu">
         <h2>Menu</h2>
@@ -42,7 +39,14 @@
             <li><a href="#" onclick="getAllRepos()">ArgoCD</a></li>
             <li><a href="#" onclick="getOrgByToken()">Organisation</a></li>
             <li><a href="#" onclick="getReposFromOrgs()">Repositories from Organisations</a></li>
-            <li><a href="#" onclick="getElementById()">Hooks from Organisations</a></li>
+            <li><a href="#" onclick="getAllHooks()">Hooks from Organisations</a></li>
+            <li>
+                <form>
+                    <input type="text" id="orgRepo" name="orgRepo" placeholder="Organisation for Hooks:" class="getHookByRepos()" onkeydown="getHookByRepos(this)">
+                    <input type="text" id="orgHook" name="orgHook" placeholder="Organisation for Repositories:" class="getHookByRepos()" onkeydown="getReposByOrg(this)">
+                    <input type="text" id="Hook" name="Hook" placeholder="Owner and Repo for Hooks (example: gepeplexx-demos/gepardenblick):" class="getHookByRepos()" onkeydown="getHookByOwnerAndRepo(this)">
+                </form>
+            </li>
         </ul>
     </nav>
 
@@ -50,32 +54,47 @@
     <!-- Main -->
     <div id="main">
         <div class="inner">
-            <h1>Connections</h1>
+            <a href="Graphviz.html"><h1 id="name">Connections</h1></a>
+
             <span class="image main"><img id="dia" src="" alt=""/></span>
             <script>
                 function getAllRepos() {
                     document.getElementById("dia").src = "/argo/repos/graph";
+                    document.getElementById("name").innerHTML = "ArgoCD";
                 }
                 function getOrgByToken() {
                     document.getElementById("dia").src = "/user/orgs/graph";
+                    document.getElementById("name").innerHTML = "Organisation";
                 }
                 function getReposFromOrgs() {
                     document.getElementById("dia").src = "/facade/orgs/repos/graph";
+                    document.getElementById("name").innerHTML = "Repositories from Organisations";
                 }
                 function getAllHooks() {
                     document.getElementById("dia").src = "/facade/orgs/repos/hooks/graph";
+                    document.getElementById("name").innerHTML = "Hooks from Organisations";
                 }
-
-                // else if (document.getElementById("getReposFromOrgs").clicked = true) {
-                //     srcl = "/facade/orgs/repos/graph";
-                // }
-                // else if (document.getElementById("getAllHooks").clicked = true) {
-                //     srcl = "/facade/orgs/repos/hooks/graph";
-                // }
-                // else{
-                //     srcl = null
-                // }
-                // document.getElementById("dia").src = "" + srcl +"";
+                function getHookByRepos(ele) {
+                    if (event.key === 'Enter'){
+                        document.getElementById("dia").src =  "/facade/" + ele.value + "/hooks/graph";
+                        document.getElementById("name").innerHTML = "Hooks From " + ele.value;
+                        ele.value = "";
+                    }
+                }
+                function getReposByOrg(ele) {
+                    if (event.key === 'Enter'){
+                        document.getElementById("dia").src =  "/repo/" + ele.value + "/graph";
+                        document.getElementById("name").innerHTML = "Repos From " + ele.value;
+                        ele.value = "";
+                    }
+                }
+                function getHookByOwnerAndRepo(ele) {
+                    if (event.key === 'Enter'){
+                        document.getElementById("dia").src =  "/repo/" + ele.value + "/hooks/graph";
+                        document.getElementById("name").innerHTML = "Hooks From " + ele.value;
+                        ele.value = "";
+                    }
+                }
             </script>
 
         </div>

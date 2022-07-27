@@ -74,7 +74,8 @@ public class GraphvizService {
         List<Node> nodeList = new ArrayList<>();
 
         for (Map.Entry<String,Boolean> entry : allRepos.entrySet()) {
-            Boolean hooks = entry.getValue();
+            Node n = node(entry.getKey()).link(to(node(entry.getValue().toString())));
+            nodeList.add(n);
         }
 
         Graph g = graph("example1").directed()
