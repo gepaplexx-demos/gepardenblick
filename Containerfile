@@ -15,4 +15,4 @@ COPY target/quarkus-app/quarkus/ /work/quarkus/
 
 EXPOSE 8080
 
-CMD ["java","-Xmx2G","-jar","application.jar","-Dquarkus.http.host=0.0.0.0"]
+CMD ["java","-Xmx1G","-jar","application.jar","-Dquarkus.http.host=0.0.0.0"]
