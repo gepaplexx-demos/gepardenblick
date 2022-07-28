@@ -7,6 +7,7 @@ RUN chown :root /work \
 
 RUN apt update
 RUN apt install openjdk-11-jdk -y
+RUN apt install graphviz -y
 
 COPY target/quarkus-app/*-run.jar /work/application.jar
 COPY target/quarkus-app/lib/ /work/lib/
