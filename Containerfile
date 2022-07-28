@@ -6,7 +6,6 @@ RUN chown :root /work \
     && chown :root /work
 
 RUN apt update
-RUN apt install openjdk-11-jdk -y
 RUN apt install graphviz -y
 
 COPY target/quarkus-app/*-run.jar /work/application.jar
@@ -16,4 +15,4 @@ COPY target/quarkus-app/quarkus/ /work/quarkus/
 
 EXPOSE 8080
 
-CMD ["java","-Xmx4G","-jar","application.jar","-Dquarkus.http.host=0.0.0.0"]
+CMD ["java","-jar","application.jar","-Dquarkus.http.host=0.0.0.0"]
