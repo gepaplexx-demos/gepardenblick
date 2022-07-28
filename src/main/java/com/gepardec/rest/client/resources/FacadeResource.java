@@ -19,10 +19,7 @@ import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Path("/facade")
@@ -141,24 +138,36 @@ public class FacadeResource {
     public Response getAllHooksGraph() {
 
         HashSet<OrgsRepo> resOrgs = orgsRepoService.getOrgByToken();
-        HashSet<Repository> resRepo;
-        HashMap<String, List<String>> hookMap = new HashMap<>();
-        for (OrgsRepo orgs:resOrgs) {
-            resRepo = repositoryService.getReposByOrg(orgs.login);
-            for (Repository repo:resRepo) {
+        HashSet<Repository> repos;
+        HashMap<String, HashMap<String, List<String>>> orgRepoHookMap = new HashMap<>();
+        HashMap<String, List<String>> repoMap = new HashMap<>();
+
+        for (OrgsRepo orgs : resOrgs) {
+            repos = repositoryService.getReposByOrg(orgs.login);
+            for (Repository repo : repos) {
                 if (repo.permissions.get("admin").equals("true")){
                     List<SourceHook> hooks = sourceHookService.getHookByRepos(orgs.login, repo.name);
                     List<String> urls = hooks.stream().map(x -> x.config.get("url")).collect(Collectors.toList());
-
-                    if(hookMap.get(orgs.login) == null) {
-                        hookMap.put(orgs.login, urls);
-                    } else {
-                        hookMap.get(orgs.login).addAll(urls);
-                    }
+                    repoMap.put(repo.name, urls);
                 }
             }
+
+            HashMap<String, List<String>> copiedRepoMap = copy(repoMap);
+            orgRepoHookMap.put(orgs.login, copiedRepoMap);
+            repoMap.clear();
         }
 
-        return Response.ok(graphvizService.drawGraphFromComplexStringHashMap(hookMap)).build();
+        return Response.ok(graphvizService.drawGraphFromNestedStringHashMap(orgRepoHookMap)).build();
+    }
+
+    // create a deep copy of given HashMap
+    public static HashMap<String, List<String>> copy(HashMap<String, List<String>> original)
+    {
+        HashMap<String, List<String>> copy = new HashMap<String, List<String>>();
+        for (Map.Entry<String, List<String>> entry : original.entrySet())
+        {
+            copy.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
+        }
+        return copy;
     }
 }
