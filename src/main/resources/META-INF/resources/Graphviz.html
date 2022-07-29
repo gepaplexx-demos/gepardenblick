@@ -78,6 +78,7 @@
                     if (event.key === 'Enter'){
                         document.getElementById("dia").src =  "/facade/" + ele.value + "/hooks/graph";
                         document.getElementById("name").innerHTML = "Hooks from " + ele.value;
+                        document.getElementById("github").href = "https://github.com/" + ele.value
                         ele.value = "";
                         document.body.classList.remove("is-menu-visible"); <!-- removes class "is-menu-visible from body such that the nav/menu closes on 'Enter' -->
                     }
@@ -86,6 +87,7 @@
                     if (event.key === 'Enter'){
                         document.getElementById("dia").src =  "/repo/" + ele.value + "/graph";
                         document.getElementById("name").innerHTML = "Repos from " + ele.value;
+                        document.getElementById("github").href = "https://github.com/" + ele.value
                         ele.value = "";
                         document.body.classList.remove("is-menu-visible");
                     }
@@ -94,6 +96,7 @@
                     if (event.key === 'Enter'){
                         document.getElementById("dia").src =  "/repo/" + ele.value + "/hooks/graph";
                         document.getElementById("name").innerHTML = "Hooks from " + ele.value;
+                        document.getElementById("github").href = "https://github.com/" + ele.value
                         ele.value = "";
                         document.body.classList.remove("is-menu-visible");
                     }
@@ -109,7 +112,7 @@
                 <h2>Links</h2>
                 <ul class="icons">
                     <li><a href="https://openshift-gitops-server-openshift-gitops.apps.play.gepaplexx.com/"><h6>ArgoCD</h6></a></li>
-                    <li><a href="https://github.com/gepaplexx-demos"><h6 class="symbol">GitHub</h6></a></li>
+                    <li><a id="github" href="https://github.com/"><h6 class="symbol">GitHub</h6></a></li>
                 </ul>
             </section>
         </div>
